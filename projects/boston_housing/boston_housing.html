@@ -11777,7 +11777,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Import libraries necessary for this project</span>
@@ -11849,7 +11849,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># TODO: Minimum price of the data</span>
@@ -11924,9 +11924,9 @@ Standard deviation of prices: $165,171.13
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer: </strong>
-RM: increase
-LSTAT: decrease
-PTRATIO: decrease</p>
+RM: increase. Because it is common sence that the bigger the house is, the higher the price.</p>
+<p>LSTAT: decrease. Poor people are likely to buy houses at neigborhood where house price is low, so it is a good indicator for a lower price.</p>
+<p>PTRATIO: decrease. Higher ratio of students to teachers usually means more household or less teachers or both. Since the education resource is limited, the lower the ratio, the higher the price is likely to be, and vice versa.</p>
 
 </div>
 </div>
@@ -11960,7 +11960,7 @@ PTRATIO: decrease</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[19]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># TODO: Import &#39;r2_score&#39;</span>
@@ -12025,7 +12025,7 @@ PTRATIO: decrease</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[20]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Calculate the performance of this model</span>
@@ -12084,7 +12084,7 @@ Yes. The R^2 is close to 1.</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[26]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># TODO: Import &#39;train_test_split&#39;</span>
@@ -13749,8 +13749,9 @@ P6WMx3loxdj7AAAAAElFTkSuQmCC
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer: </strong>Depth 3.</p>
-<p>The score of the training curve is getting close to 0.8, so does that of the testing curve.</p>
-<p>Add training points after 300 doesn't benefit the model.</p>
+<p>Before 50 training points, the testing score raises quickly from 0 as more point is added, and it increases more and more slowly, and it is getting close to 0.8 and plateaus after around 300 points.</p>
+<p>The training score decrease slowly from 1 as more points are added, and plateaus after around 300 points.</p>
+<p>So, adding training points benefit the model at first, but after 300 points, more points doesn't benefit the model.</p>
 
 </div>
 </div>
@@ -14468,7 +14469,7 @@ At depth of 10, the training score is very close to 1 while the validation score
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer: </strong>
-It takes a grid of parameters and run with each of the combinations to search for an optimal model. It can be used to brute-force a better combination of parameters.</p>
+Grid search is an algorithm for hyperparameter optimization. It takes finite sets of parameters and run with each of the pairs to search for an optimal model. It can be used to brute-force an optimal parameters and make sure the model does not overfit its data. It takes huge amount of running time. And in order to save time, we can use other technique like RandomizedSearchCV.</p>
 
 </div>
 </div>
@@ -14490,7 +14491,8 @@ It takes a grid of parameters and run with each of the combinations to search fo
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer: </strong>
-It split the data set into different propotions for training and testing datasets. It provide more accurate score of the model.</p>
+It is a method of cross-validation. The original sample is randomly partitioned into k equal sized subsamples. Of the k subsamples, a single subsample is retained as the validation data for testing the model, and the remaining k − 1 subsamples are used as training data. The cross-validation process is then repeated k times, with each of the k subsamples used exactly once as the validation data. The k results from the folds can then be averaged to produce a single estimation.</p>
+<p>It can help avoid possible bias introduced by relying on a single particular division of training and testing data.</p>
 
 </div>
 </div>
@@ -14526,7 +14528,7 @@ It split the data set into different propotions for training and testing dataset
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[33]:</div>
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># TODO: Import &#39;make_scorer&#39;, &#39;DecisionTreeRegressor&#39;, and &#39;GridSearchCV&#39;</span>
@@ -14588,7 +14590,7 @@ It split the data set into different propotions for training and testing dataset
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[34]:</div>
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Fit the training data to the model using grid search</span>
@@ -14672,7 +14674,7 @@ It's same as my guess</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[35]:</div>
+<div class="prompt input_prompt">In&nbsp;[29]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Produce a matrix for client data</span>
@@ -14683,6 +14685,7 @@ It's same as my guess</p>
 <span class="c1"># Show predictions</span>
 <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">price</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">reg</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">client_data</span><span class="p">)):</span>
     <span class="k">print</span> <span class="s2">&quot;Predicted selling price for Client {}&#39;s home: ${:,.2f}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">price</span><span class="p">)</span>
+  
 </pre></div>
 
 </div>
@@ -14712,8 +14715,12 @@ Predicted selling price for Client 3&#39;s home: $931,636.36
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer: </strong>
-Client 3 has more rooms, lower neighborhood poverty level and lower student-teacher ratio, which all contribute to a higher price. Thus, he could have the highest price.
-The rule also applies to Client 1 and 2.</p>
+Client 3's home: \$931,636</p>
+<p>Client 3' home has more rooms, lower neighborhood poverty level and lower student-teacher ratio, which all contribute to a higher price. Thus, his house could have the highest price. Also, the predicted 5 nearest neighbors price for home 3 is: \$[ 913500.   699300.   888300.  1018500.   966000.], the price is in the range and very reasonable.</p>
+<p>Client 1's home: \$403,025</p>
+<p>Client 1's home has a much higher value on neighbourhood poverty level, and less rooms compared to Client 3. Those two features both contributes to a lower price, thus the house should has a lower price. And this price is close to the median price, which is very reasonable.</p>
+<p>Client 2's home: \$237,478</p>
+<p>Client 2's home has almost double the neighborhood poverty level and higher ratio than Client 1's home. Thus it should has a lower price than Client 1's home. The predicted 5 nearest neighbors price for home 2 is: \$[ 155400.  184800.  214200.  151200.  105000.] the price is in the range and very reasonable.</p>
 
 </div>
 </div>
