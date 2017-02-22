@@ -43,10 +43,20 @@ class LearningAgent(Agent):
             self.epsilon = 0
             self.alpha = 0
         else:
-            self.t += 1
+            # original
             #self.epsilon = self.epsilon - 0.05
-            self.epsilon = math.exp(-self.alpha * self.t / 28)
-            self.alpha = max(0.1, self.alpha - 0.0011)
+            # improved 1
+            #self.t += 1
+            #self.epsilon = math.exp(-self.alpha * self.t / 28)
+            #self.alpha = max(0.1, self.alpha - 0.0011)
+            # improved 2
+            self.t += 1
+            if self.t > 200:
+                self.epsilon = math.exp(-self.alpha * (self.t - 200) / 24)
+                self.alpha = max(0.3, self.alpha - 0.0011)
+            else:
+                self.epsilon = 1
+            
         return None
 
     def build_state(self):
@@ -77,9 +87,9 @@ class LearningAgent(Agent):
         ###########
         # Calculate the maximum Q-value of all actions for a given state
 
-        maxQ = self.Q[state][max(self.Q[state])]
-
-        return maxQ 
+        maxQ = max(self.Q[state][action] for action in self.valid_actions)
+        print(maxQ, self.Q[state]);
+        return maxQ;
 
 
     def createQ(self, state):
@@ -116,18 +126,19 @@ class LearningAgent(Agent):
         if (not self.learning) or (self.epsilon > random.random()):
             action = random.choice(self.valid_actions)
         else:
-            #action = random.choice([action for action in self.valid_actions if self.Q[state][action] == self.get_maxQ(state)])
-            maxes = [];
-            temp = 0;
-            for key in self.Q[state].keys():
-                val = self.Q[state][key]
-                if val >= temp:
-                    if val == temp:
-                        maxes.append(key)
-                    else:
-                        temp = val
-                        maxes = [key]
-            action = random.choice(maxes)
+            #print(self.get_maxQ(state))
+            action = random.choice([action for action in self.valid_actions if self.Q[state][action] == self.get_maxQ(state)])
+            #maxes = [];
+            #temp = 0;
+            #for key in self.Q[state].keys():
+            #    val = self.Q[state][key]
+            #    if val >= temp:
+            #        if val == temp:
+            #            maxes.append(key)
+            #        else:
+            #            temp = val
+            #            maxes = [key]
+            #action = random.choice(maxes)
             #print('choosed', action)
         return action
 
@@ -193,7 +204,7 @@ def run():
     #   display      - set to False to disable the GUI if PyGame is enabled
     #   log_metrics  - set to True to log trial and simulation results to /logs
     #   optimized    - set to True to change the default log file name
-    sim = Simulator(env, update_delay=0.001, log_metrics=True, display=False, optimized=True)
+    sim = Simulator(env, update_delay=0.0005, log_metrics=True, display=False, optimized=True)
     #sim = Simulator(env, update_delay=0.001, log_metrics=True, display=False, optimized=False)
     #sim = Simulator(env, update_delay=2)
 
@@ -202,7 +213,7 @@ def run():
     # Flags:
     #   tolerance  - epsilon tolerance before beginning testing, default is 0.05 
     #   n_test     - discrete number of testing trials to perform, default is 0
-    sim.run(n_test=10, tolerance=0.02)
+    sim.run(n_test=100, tolerance=0.03)
 
 
 if __name__ == '__main__':
