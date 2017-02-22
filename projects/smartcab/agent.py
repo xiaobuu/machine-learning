@@ -116,6 +116,7 @@ class LearningAgent(Agent):
         if (not self.learning) or (self.epsilon > random.random()):
             action = random.choice(self.valid_actions)
         else:
+            #action = random.choice([action for action in self.valid_actions if self.Q[state][action] == self.get_maxQ(state)])
             maxes = [];
             temp = 0;
             for key in self.Q[state].keys():
@@ -126,12 +127,8 @@ class LearningAgent(Agent):
                     else:
                         temp = val
                         maxes = [key]
-            if len(maxes) > 0:
-                action = random.choice(maxes)
-            else:
-                # wtf
-                action = random.choice(self.valid_actions)
-            print('choosed', action)
+            action = random.choice(maxes)
+            #print('choosed', action)
         return action
 
 
@@ -146,7 +143,7 @@ class LearningAgent(Agent):
         # When learning, implement the value iteration update rule
         #   Use only the learning rate 'alpha' (do not use the discount factor 'gamma')
         if self.learning:
-            self.Q[state][action] = self.Q[state][action] + self.alpha * (reward - self.get_maxQ(state))
+            self.Q[state][action] = self.Q[state][action] + self.alpha * (reward - self.Q[state][action])
         return
 
 
@@ -154,7 +151,6 @@ class LearningAgent(Agent):
         """ The update function is called when a time step is completed in the 
             environment for a given trial. This function will build the agent
             state, choose an action, receive a reward, and learn if enabled. """
-
         state = self.build_state()          # Get current state
         self.createQ(state)                 # Create 'state' in Q-table
         action = self.choose_action(state)  # Choose an action
@@ -173,7 +169,7 @@ def run():
     #   verbose     - set to True to display additional output from the simulation
     #   num_dummies - discrete number of dummy agents in the environment, default is 100
     #   grid_size   - discrete number of intersections (columns, rows), default is (8, 6)
-    env = Environment(verbose=True)
+    env = Environment()
     
     ##############
     # Create the driving agent
@@ -182,7 +178,8 @@ def run():
     #    * epsilon - continuous value for the exploration factor, default is 1
     #    * alpha   - continuous value for the learning rate, default is 0.5
     agent = env.create_agent(LearningAgent, learning = True, alpha=0.7)
-    
+    #agent = env.create_agent(LearningAgent, learning = True, alpha=0.5)
+
     ##############
     # Follow the driving agent
     # Flags:
@@ -196,7 +193,8 @@ def run():
     #   display      - set to False to disable the GUI if PyGame is enabled
     #   log_metrics  - set to True to log trial and simulation results to /logs
     #   optimized    - set to True to change the default log file name
-    sim = Simulator(env, update_delay=0.01, log_metrics=True, display=False, optimized=True)
+    sim = Simulator(env, update_delay=0.001, log_metrics=True, display=False, optimized=True)
+    #sim = Simulator(env, update_delay=0.001, log_metrics=True, display=False, optimized=False)
     #sim = Simulator(env, update_delay=2)
 
     ##############
@@ -204,7 +202,7 @@ def run():
     # Flags:
     #   tolerance  - epsilon tolerance before beginning testing, default is 0.05 
     #   n_test     - discrete number of testing trials to perform, default is 0
-    sim.run(n_test=100, tolerance=0.02)
+    sim.run(n_test=10, tolerance=0.02)
 
 
 if __name__ == '__main__':
